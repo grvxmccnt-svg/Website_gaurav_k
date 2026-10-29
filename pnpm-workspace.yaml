@@ -1,0 +1,3 @@
+# Vite relies on esbuild during local and GitHub Actions builds.
+allowBuilds:
+  esbuild: true
