@@ -54,7 +54,7 @@ export const portfolioData = {
   person: {
     name: "Gaurav Khanchandani",
     monogram: "GK",
-    portraitSrc: "/photos/gaurav-headshot.png",
+    portraitSrc: "./photos/gaurav-headshot.png",
     degree: "First-year BS Mathematics · IIT Madras",
     shortTitle: "Mathematics, systems, and things still being built.",
     // Replace this with your own 2–4 sentence statement before publishing.
@@ -114,7 +114,7 @@ export const portfolioData = {
   mainRoomImages: [
     {
       id: "benzene-study",
-      src: "/photos/benzene-study.png",
+      src: "./photos/benzene-study.png",
       alt: "Benzene molecular structure diagram.",
       caption: "Benzene study",
       position: { x: -5.42, y: 2.76 },
@@ -126,7 +126,7 @@ export const portfolioData = {
     },
     {
       id: "study-desk",
-      src: "/photos/study-desk.jpg",
+      src: "./photos/study-desk.jpg",
       alt: "Personal study desk with a laptop, books, and chair.",
       caption: "Study desk",
       position: { x: 5.32, y: 2.74 },
@@ -138,7 +138,7 @@ export const portfolioData = {
     },
     {
       id: "math-notes",
-      src: "/photos/math-notes.jpg",
+      src: "./photos/math-notes.jpg",
       alt: "Handwritten mathematics notes with a geography and motion calculation.",
       caption: "Notebook page",
       position: { x: 3.32, y: 1.63 },
@@ -153,61 +153,61 @@ export const portfolioData = {
   gallery: [
     {
       id: "art-01",
-      src: "/gallery/art-01.jpg",
+      src: "./gallery/art-01.jpg",
       alt: "Abstract artwork of paths crossing a starry space with red and violet borders.",
       caption: "Orbit paths"
     },
     {
       id: "art-02",
-      src: "/gallery/art-02.jpg",
+      src: "./gallery/art-02.jpg",
       alt: "Illustrated tree with broad winding branches across a landscape.",
       caption: "Tree of life"
     },
     {
       id: "art-03",
-      src: "/gallery/art-03.jpg",
+      src: "./gallery/art-03.jpg",
       alt: "Colorful twilight landscape with a spiral sky, palm tree, and city.",
       caption: "Twilight spiral"
     },
     {
       id: "art-04",
-      src: "/gallery/art-04.jpg",
+      src: "./gallery/art-04.jpg",
       alt: "Illustrated long-haired warrior surrounded by a bright patterned scene.",
       caption: "Windborne warrior"
     },
     {
       id: "art-05",
-      src: "/gallery/art-05.jpg",
+      src: "./gallery/art-05.jpg",
       alt: "Canyon landscape with a small city beneath a red-orange sky.",
       caption: "Canyon city"
     },
     {
       id: "art-06",
-      src: "/gallery/art-06.jpg",
+      src: "./gallery/art-06.jpg",
       alt: "Colorful fan-art collage featuring Pokémon characters and a trainer.",
       caption: "Character collage"
     },
     {
       id: "art-07",
-      src: "/gallery/art-07.jpg",
+      src: "./gallery/art-07.jpg",
       alt: "Colored portrait illustration of Shiva holding a trident.",
       caption: "Shiva study"
     },
     {
       id: "art-08",
-      src: "/gallery/art-08.jpg",
+      src: "./gallery/art-08.jpg",
       alt: "Bright landscape with trees, a river, and pink blossoms.",
       caption: "Forest in bloom"
     },
     {
       id: "art-09",
-      src: "/gallery/art-09.jpg",
+      src: "./gallery/art-09.jpg",
       alt: "Painted portrait study of a young man wearing glasses.",
       caption: "Portrait study"
     },
     {
       id: "art-10",
-      src: "/gallery/art-10.jpg",
+      src: "./gallery/art-10.jpg",
       alt: "Mythological figure standing among purple serpents above a blue sea.",
       caption: "Cosmic myth"
     }
