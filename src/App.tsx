@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { Component, lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Footprints, Info, Sparkles } from "lucide-react";
 import { MobileStudioMap, PortfolioModal, SiteHeader, StudioDock } from "./components/Overlay";
 import { portfolioData } from "./data/portfolioData";
@@ -11,6 +11,35 @@ export type Quality = "standard" | "high";
 export type Theme = "light" | "dark";
 
 const tour: Exclude<ModalName, null>[] = ["milestones", "explorations", "gallery", "profile"];
+
+class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode; onFailure: () => void }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch() {
+    this.props.onFailure();
+  }
+
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
+
+function WebGLFallback({ activeSection, onOpen }: { activeSection: ModalName; onOpen: (section: Exclude<ModalName, null>) => void }) {
+  return (
+    <div className="scene-webgl-fallback">
+      <div className="webgl-fallback-message">
+        <p className="eyebrow"><Sparkles size={13} aria-hidden="true" /> 3D VIEWER PAUSED</p>
+        <h2>The studio is still open.</h2>
+        <p>Your browser could not start the 3D view right now. Use the interactive map to explore every room.</p>
+      </div>
+      <MobileStudioMap activeSection={activeSection} onOpen={onOpen} />
+    </div>
+  );
+}
 
 function useCompactLayout() {
   const [compact, setCompact] = useState(() => window.matchMedia("(max-width: 760px)").matches);
@@ -30,6 +59,7 @@ export default function App() {
   const [quality, setQuality] = useState<Quality>("high");
   const [theme, setTheme] = useState<Theme>(() => window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   const [tourIndex, setTourIndex] = useState<number | null>(null);
+  const [webglUnavailable, setWebglUnavailable] = useState(false);
 
   const activeSection = useMemo(() => (tourIndex === null ? modal : tour[tourIndex]), [modal, tourIndex]);
 
@@ -126,20 +156,25 @@ export default function App() {
           {compact ? (
             <MobileStudioMap activeSection={activeSection} onOpen={openSection} />
           ) : (
-            <Suspense fallback={<div className="scene-loading" aria-live="polite">Opening the studio…</div>}>
-              <PortfolioScene
-                activeSection={activeSection}
-                motionEnabled={motionEnabled}
-                quality={quality}
-                theme={theme}
-                onOpen={openSection}
-              />
-            </Suspense>
+            <WebGLBoundary
+              onFailure={() => setWebglUnavailable(true)}
+              fallback={<WebGLFallback activeSection={activeSection} onOpen={openSection} />}
+            >
+              <Suspense fallback={<div className="scene-loading" aria-live="polite">Opening the studio…</div>}>
+                <PortfolioScene
+                  activeSection={activeSection}
+                  motionEnabled={motionEnabled}
+                  quality={quality}
+                  theme={theme}
+                  onOpen={openSection}
+                />
+              </Suspense>
+            </WebGLBoundary>
           )}
 
           <aside className="scene-note" aria-label="How to explore the room">
             <Info size={15} aria-hidden="true" />
-            <span id="scene-controls">Click or tab into the room to walk with WASD or arrow keys. Click outside the room to return to page scrolling.</span>
+            <span id="scene-controls">{webglUnavailable ? "The 3D view is unavailable in this browser, but every room is available from the studio map." : "Click or tab into the room to walk with WASD or arrow keys. Click outside the room to return to page scrolling."}</span>
           </aside>
 
           <StudioDock activeSection={modal} onOpen={openSection} />
